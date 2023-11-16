@@ -7,53 +7,41 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
-class GameViewModel : ViewModel() {
-    private val _score = MutableLiveData(0)
-    val score: LiveData<Int>
-        get() = _score
+class GameViewModel(
+    private val repository: ProductsRepository
+) : ViewModel() {
+    private val _product = MutableLiveData<Product>()
+    val product: LiveData<Product>
+        get() = _product
 
-    private val _currentWordCount = MutableLiveData(0)
-    val currentWordCount: LiveData<Int>
-        get() = _currentWordCount
+    fun init() {
+//        viewModelScope.launch {
+//            repository.find(1).let {
+//                _product.value = it
+//            }
+//        }
+    }
 
-    // LiveDataだとvalにできるから、lateinitが取れはする
-    private val _currentScrambledWord = MutableLiveData<String>()
-    val currentScrambledWord: LiveData<Spannable> = _currentScrambledWord.map {
-        if (it == null) {
-            SpannableString("")
-        } else {
-            val scrambledWord = it.toString()
-            val spannable: Spannable = SpannableString(scrambledWord)
-            spannable.setSpan(
-                TtsSpan.VerbatimBuilder(scrambledWord).build(),
-                0,
-                scrambledWord.length,
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE
-            )
-            spannable
+    fun updateProduct() {
+        viewModelScope.launch {
+            repository.find(1).let {
+                _product.value = it
+            }
         }
     }
+}
 
-    private var wordsList: MutableList<String> = mutableListOf()
-    private lateinit var currentWord: String
-
-    init {
-        Log.d("GameFragment", "GameViewModel created!")
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("GameFragment", "GameViewModel destroyed!")
-    }
-
-    /*
-* Re-initializes the game data to restart the game.
-*/
-    fun reinitializeData() {
-        _score.value = 0
-        _currentWordCount.value = 0
-        wordsList.clear()
+class GameViewModelFactory(private val repository: ProductsRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return GameViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
