@@ -23,7 +23,7 @@ plugins {
 android {
     defaultConfig {
         compileSdk 34
-        applicationId "com.example.android.unscramble"
+        applicationId "com.example.android.ktorsample"
         minSdkVersion 23
         targetSdkVersion 34
         versionCode 1
@@ -48,7 +48,7 @@ android {
     buildFeatures {
         dataBinding true
     }
-    namespace 'com.example.android.unscramble'
+    namespace 'com.example.android.ktorsample'
 }
 
 dependencies {

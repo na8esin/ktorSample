@@ -21,7 +21,7 @@
     <data>
         <variable
             name="gameViewModel"
-            type="com.example.android.unscramble.ui.game.GameViewModel" />
+            type="com.example.android.ktorsample.GameViewModel" />
         <variable
             name="maxNoOfWords"
             type="int" />

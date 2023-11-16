@@ -1,4 +1,4 @@
-package com.example.android.unscramble.ui.game
+package com.example.android.ktorsample
 
 import android.text.Spannable
 import android.text.SpannableString
