@@ -1,4 +1,4 @@
-package com.example.android.ktorsample
+package com.example.android.ktorsample.product
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

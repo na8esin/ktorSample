@@ -1,15 +1,12 @@
 package com.example.android.ktorsample
 
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.TtsSpan
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.example.android.ktorsample.product.Product
+import com.example.android.ktorsample.product.ProductsRepository
 import kotlinx.coroutines.launch
 
 class GameViewModel(
