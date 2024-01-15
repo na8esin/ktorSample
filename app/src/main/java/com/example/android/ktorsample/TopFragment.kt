@@ -1,7 +1,9 @@
 package com.example.android.ktorsample
 
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ class TopFragment : Fragment() {
 
     companion object {
         fun newInstance() = TopFragment()
+        private const val TAG = "TopFragment"
     }
 
     private lateinit var viewModel: TopViewModel
@@ -36,7 +39,23 @@ class TopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[TopViewModel::class.java]
-        // TODO: Use the ViewModel
+
+        display()
+    }
+
+    /**
+     * https://source.android.com/docs/core/display/hdr?hl=ja#display
+     *
+     * 対応してれば、こんな感じで出力される。
+     * pixelだと8からしか対応してない
+     * HdrCapabilities{mSupportedHdrTypes=[2, 3, 4], mMaxLuminance=1000.0, mMaxAverageLuminance=120.0, mMinLuminance=5.0E-4}
+     */
+    private fun display() {
+        if (Build.VERSION.SDK_INT > 30) {
+            Log.d(TAG, context?.display?.hdrCapabilities.toString())
+            Log.d(TAG, context?.display?.isHdr.toString())
+            return
+        }
     }
 
     override fun onDestroyView() {

@@ -1,9 +1,8 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'org.jetbrains.kotlin.plugin.serialization' version("1.8.22")
+    id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.plugin.serialization' version "1.8.10"
 }
 
 android {
@@ -39,7 +38,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def ktor_version = "2.3.7"
     implementation "io.ktor:ktor-client-core:$ktor_version"
     implementation "io.ktor:ktor-client-cio:$ktor_version"
@@ -66,7 +64,7 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1'
 
-    testImplementation "junit:junit:5.7.2"
+    testImplementation "junit:junit:4.13.2"
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testImplementation "androidx.test.ext:junit-ktx:1.1.5"
     testImplementation "androidx.arch.core:core-testing:2.2.0"
